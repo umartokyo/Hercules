@@ -1,5 +1,5 @@
-fastapi
-uvicorn
-pymongo
-pyjwt
+fastapi[all]
 passlib[bcrypt]
+PyJWT
+pydantic-settings
+python-dotenv
