@@ -1,0 +1,21 @@
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+  backend:
+    build: ./backend
+    ports:
+      - 8000:8000
+    environment:
+      DB_URL: mongodb://database/hercules
+  database:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - hercules:/data/db
+
+volumes:
+  hercules:
