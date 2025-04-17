@@ -1,16 +1,21 @@
 from fastapi import FastAPI
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
-from app.core.config import settings
-from app.api.v1.api import api_router as api_router_v1
+app = FastAPI()
 
-app = FastAPI(
-    title=settings.PROJECT_NAME,
-    openapi_url=f"{settings.APP_V1_STR}/openapi.json"
-)
+client = MongoClient("mongodb://database:27017/")
+db = client.hercules
+people = db.people
 
-app.include_router(api_router_v1, prefix=settings.APP_V1_STR)
+people.delete_many({})
 
-@app.get("/", tags=["Health Check"])
-async def read_root():
-    """ Root endpoint """
-    return {"message": f"Welcome to {settings.PROJECT_NAME}. Go to /docs for API documentation."}
+@app.get("/")
+def index():
+  all_people = list(people.find({}, {"_id": 0}))
+  return {'people': all_people}
+
+@app.get("/{name}")
+def another_human(name):
+  human_id = people.insert_one({"name": name}).inserted_id
+  return {"human_id": people.find({"_id": ObjectId(human_id)})}
