@@ -1,0 +1,6 @@
+fastapi[all]
+passlib[bcrypt]
+PyJWT
+pydantic-settings
+python-dotenv
+pymongo

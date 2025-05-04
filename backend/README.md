@@ -1,0 +1,13 @@
+## Structure
+- main.py: maps the fastapi endpoints, runs a program
+- requirements.txt: necessary python packages
+- Dockerfile: Docker image blueprint
+- .env: has environmental files in it
+- .gitignore: for the git
+- app/: contains all the code
+- app/api: contains api endpoints, just calls the functions with needed parameters
+- app/auth: contains authentication
+- app/crud: something like crud, it manages crud, and working with mongodb
+- app/models: data models, objects
+- unit test files are located right next to the real python files
+- app/bridge: contains everything else
